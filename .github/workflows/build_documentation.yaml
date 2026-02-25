@@ -7,7 +7,7 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  build_manifests:
+  build_documentation:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -26,12 +26,16 @@ jobs:
         run: |
           pip install -U -r requirements.txt
 
+      - name: Run documentation build script
+        run: |
+          python build.py
+
       - name: Transfer manifests to deploy branch
         shell: bash
         run: |
           # Copy the manifests to a temporary directory
-          export MANIFESTS_TEMP=$(mktemp -d)
-          cp -r output/* $MANIFESTS_TEMP
+          export DOCUMENTATION_OUTPUT_TEMP=$(mktemp -d)
+          cp -r output/* $DOCUMENTATION_OUTPUT_TEMP
 
           # Clear the repo so we can switch branches
           git clean -dfx
@@ -46,9 +50,9 @@ jobs:
           fi
 
           # Copy artifacts here
-          cp -r ${MANIFESTS_TEMP}/* .
+          cp -r ${DOCUMENTATION_OUTPUT_TEMP}/* .
 
-          # Upload the manifest
+          # Upload the documentation
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add .
