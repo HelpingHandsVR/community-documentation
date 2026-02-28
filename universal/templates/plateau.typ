@@ -68,15 +68,41 @@
     ))
   ])
 
-  [
-    = #title
-    == #subtitle
-  ]
-
 }
 
 #let template(
-  ..args
+  ..args,
+  body
 ) = {
   header_page(..args)
+
+  set text(font: "Inter Tight")
+
+  // Fancy headers
+  let circle_overbuffer = 0.25em
+  let circle_innersize = 1em
+  let heading_spacing = 0.5em
+  let heading_preline = 10pt
+  show heading: it => context grid(
+    columns: (heading_preline, circle_overbuffer * 2 + circle_innersize, heading_spacing, auto, heading_spacing, 1fr),
+    rows: (circle_overbuffer, circle_innersize, circle_overbuffer),
+
+    grid.cell(colspan: 1)[],
+    grid.cell(rowspan: 3)[
+      #circle(height: circle_overbuffer * 2 + circle_innersize)[
+        #place(center + horizon)[
+          #context { counter(heading).get().at(0) + 1 }
+          #counter(heading).step()
+        ]
+      ]
+    ],
+    grid.cell(colspan: 4)[],
+    line(start: (0%, 50%), end: (100%, 50%)),
+    [],
+    align(horizon, text(weight: 800, it.body)),
+    [],
+    line(start: (0%, 50%), end: (100%, 50%)),
+  )
+
+  body
 }
