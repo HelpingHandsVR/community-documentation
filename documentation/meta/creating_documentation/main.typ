@@ -32,7 +32,7 @@ For instance, the following vector image of a startled kettle is in `documentati
 Files that are frequently shared amongst files are found in the `universal` directory. You can reference these files as well in documentation. For instance, here is the Helping Hands logo:
 
 #figure(
-  image("../../../universal/logos/logo.svg", width: 1in),
+  image("../../../universal/images/logos/logo.svg", width: 1in),
   caption: [Helping Hands logo.]
 )
 
