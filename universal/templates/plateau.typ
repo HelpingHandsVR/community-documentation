@@ -77,13 +77,15 @@
   header_page(..args)
 
   set text(font: "Inter Tight")
+  show raw: set text(font: "Iosevka Fixed", size: 1.2em)
+  set par(justify: true)
 
   // Fancy headers
   let circle_overbuffer = 0.25em
   let circle_innersize = 1em
   let heading_spacing = 0.5em
   let heading_preline = 10pt
-  show heading: it => context grid(
+  show heading.where(level: 1): it => context grid(
     columns: (heading_preline, circle_overbuffer * 2 + circle_innersize, heading_spacing, auto, heading_spacing, 1fr),
     rows: (circle_overbuffer, circle_innersize, circle_overbuffer),
 
