@@ -76,9 +76,10 @@
 ) = {
   header_page(..args)
 
-  set text(font: "Inter Tight")
-  show raw: set text(font: "Iosevka Fixed", size: 1.2em)
+  set page(numbering: "1")
   set par(justify: true)
+  show raw: set text(font: "Iosevka Fixed", size: 1.2em)
+  set text(font: "Inter Tight")
 
   // Fancy headers
   let circle_overbuffer = 0.25em
