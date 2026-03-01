@@ -75,6 +75,8 @@ This section covers abstract concepts that relate to your development work at He
 
     You should also ensure that any machines, software, or accounts you use to collect or process data from our userbase is suitably secure. If you integrate with SaaS solutions, pay for hardware or network hosting, or use data platforms (including ones that perform surveys, telemetry, analytics, or profiling), you should check what data policies they have declared compliance with.
 
+    Be careful about credential management when it is relevant - do not store passwords, API keys, tokens or similar in source code, or in locations where they may be easily exfiltrated.
+
     You are also encouraged to rely on known-safe and known-secure implementations when it comes to handling of authentication and other software areas with nuanced security characteristics.
 
     The best approach to sensible data handling is always to avoid handling data if you can, and avoid storing or sharing it if you can't.
