@@ -138,6 +138,7 @@
   let circle_innersize = 1em
   let heading_spacing = 0.5em
   let heading_preline = 10pt
+  set heading(numbering: "1.1")
   show heading.where(level: 1): it => context grid(
     columns: (heading_preline, circle_overbuffer * 2 + circle_innersize, heading_spacing, auto, heading_spacing, 1fr),
     rows: (circle_overbuffer, circle_innersize, circle_overbuffer),
@@ -146,8 +147,7 @@
     grid.cell(rowspan: 3)[
       #circle(height: circle_overbuffer * 2 + circle_innersize)[
         #place(center + horizon)[
-          #context { counter(heading.where(level: 1)).get().at(0) + 1 }
-          #counter(heading.where(level: 1)).step()
+          #context { counter(heading.where(level: 1)).get().at(0) }
           #counter(heading.where(level: 2)).update(0)
         ]
       ]

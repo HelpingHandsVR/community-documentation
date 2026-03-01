@@ -35,7 +35,7 @@ This document primarily serves to codify many of the principles typically inferr
 
 Thank you for taking the time to read this handbook and for being part of our team.
 
-= Philosophy of Development
+= Philosophy of Development <section:philosophy>
 
 This section covers abstract concepts that relate to your development work at Helping Hands. Fine implementation details and the more pragmatic aspects of design will be covered in other sections #sym.dash the goal of this section is centered more around the ethical principles you should apply in the development of your projects.
 
@@ -107,6 +107,8 @@ The form that project lifecycle management takes is likely to vary from project 
 
 Helping Hands has a #link("https://github.com/HelpingHandsVR")[GitHub organization] that you can request access to and maintain either public or private repositories within. This service allows you to version control source code and assets with the #link("https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control")[Git Version Control System]. It is the recommended way to handle direct software, as well as software-like projects such as Unity projects.
 
+You are generally entrusted with the agency to work on whatever projects you think will benefit the community, and you usually do not need permission to start working on something as long as it aligns with the principles mentioned in @section:philosophy. You should still communicate what are you working on, so that others can assist you and ensure they are not repeating your work.
+
 Whether you choose to make your source code and project available to the wider public is a personal decision on your part as a developer. This includes what kind of license you grant when doing this publication, although as an access-focused community we highly recommend OSI-approved licenses without restrictive clauses, as to allow community members to make the best use of the technology we have developed.
 
 When you produce work for Helping Hands, you for all intents and purposes retain your ownership and licensing rights over that work. However, we request and expect that you grant Helping Hands the license to modify, maintain, copy, derive, share, relicense, and redistribute the work you have produced. If possible, we do our best to explicitly request the permission to do any of these as they become relevant, and we strive to respect your intents and wishes regarding your work, but receiving this license from you helps ensure that we are able to meaningfully use your work without needing to consider potential application risk.
@@ -122,6 +124,8 @@ As the majority of our events take place within VRChat worlds, world logic is im
 In general, most world logic is implemented in UdonSharp, as it makes complex behaviour easy to maintain and use across worlds. UdonSharp is a subset of C#sym.hash, and so general C#sym.hash experience will come in useful here. Experience with Unity behaviours and conventions is also necessary, but it is possible to learn these as they become relevant.
 
 When implementing world logic, you should version control it and it is usually best practice to develop it to be agnostic to the world it is in. This allows it to be reused, reducing effort on your part, and allows you to break down the logic of a world into discrete maintainable parts.
+
+It is also advised to format your code in a consistent manner, although we do not enforce any particular formatting scheme.
 
 == VRChat avatars
 
