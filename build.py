@@ -59,7 +59,10 @@ def main(
             typst_fonts.append(str(global_font_directory))
 
         inputs = {
-            "compile_time": datetime.datetime.now(datetime.UTC).isoformat()
+            "compile_time": datetime.datetime.now(datetime.UTC).isoformat(),
+            "git_commit_rev": subprocess.run(['git', 'rev-list', '--count', 'HEAD'], capture_output=True, text=True).stdout.strip(),
+            "git_commit_hash": subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], capture_output=True, text=True).stdout.strip(),
+            "git_commit_time": subprocess.run(['git', 'log', '-1', '--format=%cI'], capture_output=True, text=True).stdout.strip(),
         }
 
         typst_inputs: typing.List[str] = []

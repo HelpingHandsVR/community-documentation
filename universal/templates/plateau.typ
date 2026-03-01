@@ -1,11 +1,11 @@
 
-#let header_page(
+#let starting_page(
   title: [],
   subtitle: [],
 
   background_fill: rgb("#5071d4"),
 
-  infill_content: rect(fill: tiling(size: (15pt, 15pt))[
+  infill_content: rect(fill: tiling(size: (30pt, 30pt))[
     #place(line(start: (50%, 0%), end: (50%, 100%), stroke: white.transparentize(50%)))
     #place(line(start: (0%, 50%), end: (100%, 50%), stroke: white.transparentize(50%)))
   ], width: 100%, height: 100%),
@@ -67,19 +67,71 @@
       [],
     ))
   ])
+}
 
+#let ending_page(
+  title: [],
+  subtitle: [],
+
+  background_fill: rgb("#5071d4"),
+
+  infill_content: rect(fill: tiling(size: (30pt, 30pt))[
+    #place(line(start: (50%, 0%), end: (50%, 100%), stroke: white.transparentize(50%)))
+    #place(line(start: (0%, 50%), end: (100%, 50%), stroke: white.transparentize(50%)))
+  ], width: 100%, height: 100%),
+
+  accent_fill_color: rgb("#1e3c88"),
+  accent_fill_darken: 50%,
+  accent_fill_opacity: 50%,
+  accent_fill: none,
+) = {
+  let accent_fill = if accent_fill == none {
+    gradient.linear(
+      accent_fill_color.transparentize(100% - accent_fill_opacity),
+      accent_fill_color.darken(accent_fill_darken),
+      angle: 60deg
+    )
+  } else {
+    accent_fill
+  }
+
+  page(margin: 0pt, [
+    #place(top + left, rect(width: 100%, height: 100%, fill: background_fill))
+    #place(top + left, [#infill_content])
+    #place(top + left, rect(width: 100%, height: 100%, fill: accent_fill))
+    #place(bottom + left, box(inset: 1em, text(fill: white)[
+      #title #subtitle
+    ]))
+    #place(bottom + right, box(inset: 1em, text(fill: white)[
+      #if "git_commit_rev" in sys.inputs {
+        [
+          Revision #sys.inputs.git_commit_rev
+
+          #sys.inputs.git_commit_hash
+
+          #sys.inputs.git_commit_time
+        ]
+      } else {
+        [Development copy]
+      }
+    ]))
+  ])
 }
 
 #let template(
+  show_ending_page: true,
   ..args,
   body
 ) = {
-  header_page(..args)
+  starting_page(..args)
 
   set page(numbering: "1")
   set par(justify: true)
   show raw: set text(font: "Iosevka Fixed", size: 1.2em)
   set text(font: "Inter Tight")
+
+  // Show links with underline and icon
+  show link: it => underline({it; h(0.2em); box(image("../icons/open-in-new.svg", height: 0.75em))})
 
   // Fancy headers
   let circle_overbuffer = 0.25em
@@ -94,8 +146,9 @@
     grid.cell(rowspan: 3)[
       #circle(height: circle_overbuffer * 2 + circle_innersize)[
         #place(center + horizon)[
-          #context { counter(heading).get().at(0) + 1 }
-          #counter(heading).step()
+          #context { counter(heading.where(level: 1)).get().at(0) + 1 }
+          #counter(heading.where(level: 1)).step()
+          #counter(heading.where(level: 2)).update(0)
         ]
       ]
     ],
@@ -107,5 +160,33 @@
     line(start: (0%, 50%), end: (100%, 50%)),
   )
 
+  show heading.where(level: 2): it => context grid(
+    columns: (heading_preline * 0.5, circle_overbuffer * 5 + circle_innersize, heading_spacing, auto, heading_spacing, 1fr),
+    rows: (circle_overbuffer, circle_innersize, circle_overbuffer),
+
+    grid.cell(colspan: 1)[],
+    grid.cell(rowspan: 3)[
+      #rect(height: circle_overbuffer * 2 + circle_innersize, width: circle_overbuffer * 5 + circle_innersize)[
+        #place(center + horizon)[
+          #context {
+            counter(heading.where(level: 1)).get().at(0)
+          }.#context {
+            counter(heading.where(level: 2)).get().at(0) + 1
+          }
+          #counter(heading.where(level: 2)).step()
+        ]
+      ]
+    ],
+    grid.cell(colspan: 4)[],
+    line(start: (0%, 50%), end: (100%, 50%)),
+    [],
+    align(horizon, text(weight: 800, it.body)),
+    [],
+  )
+
   body
+
+  if (show_ending_page) {
+    ending_page(..args)
+  }
 }
