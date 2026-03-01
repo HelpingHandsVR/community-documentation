@@ -78,7 +78,7 @@ This section covers abstract concepts that relate to your development work at He
 
     Be careful about credential management when it is relevant - do not store passwords, API keys, tokens or similar in source code, or in locations where they may be easily exfiltrated.
 
-    You are also encouraged to rely on known-safe and known-secure implementations when it comes to handling of authentication and other software areas with nuanced security characteristics.
+    You are also encouraged to rely on known-safe and known-secure implementations when it comes to handling of authentication and other software areas with nuanced security characteristics. There are many useful sources of info on up to date security practice, such as OWASP's Cryptographic Storage Cheat Sheet @owasp_2013_cryptographic.
 
     The best approach to sensible data handling is always to avoid handling data if you can, and avoid storing or sharing it if you can't.
 
@@ -193,6 +193,7 @@ Thank you for your time in reading this handbook.
 // Reference section
 #pagebreak()
 #set heading(numbering: "A")
+#show bibliography: set heading(numbering: "A")
 #counter(heading.where(level: 1)).update(0)
 
 #align(center)[Appendices]
@@ -214,6 +215,6 @@ Thank you for your time in reading this handbook.
 
     https://github.com/HelpingHandsVR/community-documentation/blob/deploy/staff/teams/development/handbook.pdf
 
-= References
 
-None as of current revision.
+// Bibliography
+#bibliography("references.bib")
