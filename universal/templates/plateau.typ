@@ -164,7 +164,7 @@
     grid.cell(rowspan: 3)[
       #circle(height: circle_overbuffer * 2 + circle_innersize)[
         #place(center + horizon)[
-          #context { counter(heading.where(level: 1)).get().at(0) }
+          #context { counter(heading.where(level: 1)).display() }
           #counter(heading.where(level: 2)).update(0)
         ]
       ]

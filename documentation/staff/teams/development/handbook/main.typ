@@ -189,3 +189,31 @@ Thank you for your time in reading this handbook.
     #image("byebye.svg", width: 25%)
     #text(fill: black.transparentize(75%))[_Bye bye for now!_]
 ])
+
+// Reference section
+#pagebreak()
+#set heading(numbering: "A")
+#counter(heading.where(level: 1)).update(0)
+
+#align(center)[Appendices]
+
+= External links in document
+// Please ensure this is up to date!
+// Enter links directly, not with a # link() statement
+// This way you can search for the above statements to find any entries that might not be already included in this list.
+
+- Helping Hands GitHub Organization
+
+    https://github.com/HelpingHandsVR
+
+- Git Version Control System
+
+    https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control
+
+- Latest handbook revision
+
+    https://github.com/HelpingHandsVR/community-documentation/blob/deploy/staff/teams/development/handbook.pdf
+
+= References
+
+None as of current revision.
