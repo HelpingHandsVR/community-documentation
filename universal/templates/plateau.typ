@@ -1,4 +1,6 @@
 
+#import "@preview/cades:0.3.1": qr-code
+
 #let starting_page(
   title: [],
   subtitle: [],
@@ -73,6 +75,10 @@
   title: [],
   subtitle: [],
 
+  source_repository: "https://github.com/HelpingHandsVR/community-documentation",
+  source_branch: "source",
+  source_path: "documentation",
+
   background_fill: rgb("#5071d4"),
 
   infill_content: rect(fill: tiling(size: (30pt, 30pt))[
@@ -95,6 +101,12 @@
     accent_fill
   }
 
+  let source_url = if "git_commit_hash" in sys.inputs {
+    source_repository + "/tree/" + sys.inputs.git_commit_hash + "/" + source_path
+  } else {
+    source_repository + "/tree/" + source_branch + "/" + source_path
+  }
+
   page(margin: 0pt, [
     #place(top + left, rect(width: 100%, height: 100%, fill: background_fill))
     #place(top + left, [#infill_content])
@@ -114,12 +126,17 @@
       } else {
         [Development copy]
       }
+
+      #box(inset: .5em, fill: white, qr-code(source_url, width: 6em))
     ]))
   ])
 }
 
 #let template(
   show_ending_page: true,
+  source_repository: "https://github.com/HelpingHandsVR/community-documentation",
+  source_branch: "source",
+  source_path: "documentation",
   ..args,
   body
 ) = {
@@ -187,6 +204,11 @@
   body
 
   if (show_ending_page) {
-    ending_page(..args)
+    ending_page(
+      ..args,
+      source_repository: source_repository,
+      source_branch: source_branch,
+      source_path: source_path,
+    )
   }
 }

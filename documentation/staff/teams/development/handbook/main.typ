@@ -15,6 +15,7 @@
 #show: template.with(
     title: "Helping Hands",
     subtitle: "Development Team Handbook",
+    source_path: "documentation/staff/teams/development/handbook",
 )
 
 #let fixme = text(fill: red)[#sym.hash FIXME]
